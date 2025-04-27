@@ -245,7 +245,9 @@ img {
     margin: 0;
   }
   .l-main {
-    height: 100vh;
+    min-height: 100vh; /* Minimum full screen */
+    background-color: var(--black-color);
+    padding-bottom: 5rem; /* Add some space for scroll feeling */
   }
   .nav {
     height: 4rem;

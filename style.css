@@ -359,6 +359,17 @@ img {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
+.home__img img {
+  width: 300px;
+  height: auto;
+  border-radius: 20px; /* Optional: still keep soft corners */
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  
+  /* NEW: Add a mask to fade */
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+mask-image: linear-gradient(to top, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+}
 html {
   scroll-behavior: smooth;
 }

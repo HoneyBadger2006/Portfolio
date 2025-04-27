@@ -359,9 +359,13 @@ img {
   margin-bottom: 1rem;
   line-height: 1.6;
 }
+.about__text span {
+  font-weight: 700;
+}
 .home__img img {
   width: 600px;
   height: auto;
+  top :-50px;
   border-radius: 20px;
   object-fit: cover;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
@@ -369,6 +373,25 @@ img {
   /* Fading effect */
   -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0));
+}
+.contact__container {
+  row-gap: 2rem;
+}
+
+.contact__info {
+  text-align: center;
+}
+
+.contact__subtitle {
+  font-size: var(--h2-font-size);
+  margin-bottom: 0.5rem;
+}
+
+.contact__text {
+  display: block;
+  font-size: var(--normal-font-size);
+  color: var(--white-color);
+  margin-bottom: 0.25rem;
 }
 html {
   scroll-behavior: smooth;

@@ -49,7 +49,7 @@ body {
   background-color: var(--black-color);
   color: var(--white-color);
   font-weight: 700;
-  overflow: hidden;
+ /* overflow: hidden;*/
 }
 
 h1, h2 {
@@ -323,4 +323,42 @@ img {
 .third {
   background-color: var(--first-color);
   left: 66.6%;
+}
+/* ABOUT */
+.section {
+  padding: 4rem 0 2rem;
+}
+
+.section-title {
+  font-size: var(--h2-font-size);
+  color: var(--white-color);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.about__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  align-items: center;
+  gap: 2rem;
+}
+
+.about__img img {
+  width: 100%;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.about__subtitle {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.about__text {
+  font-size: var(--normal-font-size);
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+html {
+  scroll-behavior: smooth;
 }

@@ -32,3 +32,7 @@ gsap.from('.nav__item', {opacity: 0, duration: 3, delay: 3.2, y: 25, ease:'expo.
 
 // SOCIAL
 gsap.from('.home__social-icon', {opacity: 0, duration: 3, delay: 4, y: 25, ease:'expo.out', stagger: .2})
+// ABOUT SECTION
+gsap.from('.about__img img', {opacity: 0, duration: 2, delay: 4.5, x: -60, ease: 'expo.out'});
+gsap.from('.about__subtitle', {opacity: 0, duration: 2, delay: 5, y: 25, ease: 'expo.out'});
+gsap.from('.about__text', {opacity: 0, duration: 2, delay: 5.3, y: 25, ease: 'expo.out', stagger: 0.2});

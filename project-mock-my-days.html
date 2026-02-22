@@ -1,0 +1,98 @@
+<!-- project-mock-my-days.html (FULL) -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mock My Days | Quan Portfolio</title>
+  </head>
+
+  <body>
+    <!-- HEADER (simple) -->
+    <header class="l-header">
+      <nav class="nav bd-grid">
+        <div>
+          <a href="index.html" class="nav__logo">Quan</a>
+        </div>
+
+        <div class="nav__menu show" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
+            <li class="nav__item"><a href="index.html#projects" class="nav__link">Projects</a></li>
+            <li class="nav__item"><a href="index.html#contact" class="nav__link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main class="bd-grid project-page">
+      <a class="back-link" href="index.html#projects">← Back to Projects</a>
+
+      <section class="project-hero">
+        <img class="zoomable" src="assets/img/mock-my-day-1.jpg" alt="Mock My Days banner" />
+      </section>
+
+      <section class="project-detail">
+        <div class="project-detail__header">
+          <div class="project__meta">
+            <span class="project__event">Hackathon</span>
+            <span class="project__year">2026</span>
+          </div>
+
+          <h1 class="project-detail__title">Mock My Days</h1>
+          <p class="project-detail__tagline">
+            Productivity + accountability with a fun roast vibe.
+          </p>
+
+          <div class="project__chips">
+            <span class="chip">Expo</span>
+            <span class="chip">React Native</span>
+            <span class="chip">Supabase</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">Java</span>
+          </div>
+        </div>
+
+        <div class="project-detail__body">
+          <h2 class="project-detail__section-title">Overview</h2>
+          <p class="project-detail__text">
+            Mock My Days is a productivity app built during a hackathon. It helps users plan tasks,
+            stay consistent, and get motivational “mock/roast” feedback to keep momentum.
+          </p>
+
+          <h2 class="project-detail__section-title">What I did</h2>
+          <ul class="project-detail__list">
+            <li>Designed the core flow: create tasks → schedule → progress tracking</li>
+            <li>Built the mobile UI in Expo + React Native</li>
+            <li>Connected backend using Supabase (PostgreSQL) for storing user/task data</li>
+          </ul>
+
+          <h2 class="project-detail__section-title">Links</h2>
+          <div class="project-detail__links">
+            <a class="link-btn" href="https://devpost.com/software/mock-my-days" target="_blank" rel="noopener noreferrer">
+              View on Devpost
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="lightbox.js"></script>
+  </body>
+</html>
+<div class="detail-gallery">
+  <figure class="detail-card">
+    <img class="zoomable" src="assets/img/mock-my-day-2.jpg" alt="Team working on Mock My Days" />
+    <figcaption class="detail-caption">
+      Team working late night: planning features, fixing bugs, and building the MVP during the hackathon.
+    </figcaption>
+  </figure>
+
+  <figure class="detail-card">
+    <img class="zoomable" src="assets/img/mock-my-day-3.jpg" alt="Team debugging Mock My Days" />
+    <figcaption class="detail-caption">
+      Debugging together and coming up with solutions fast — testing flows, resolving errors, and polishing the app.
+    </figcaption>
+  </figure>
+</div>

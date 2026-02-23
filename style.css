@@ -531,3 +531,28 @@ img {
 .zoomable {
   cursor: pointer;
 }
+/* MOBILE FIX: make project banners shorter */
+@media screen and (max-width: 480px) {
+  .project-banner__img img {
+    height: 210px;        /* was 360px */
+  }
+
+  .project-banner__overlay {
+    padding: 0.9rem;      /* smaller padding */
+    gap: 0.5rem;
+  }
+
+  .project-banner__title {
+    font-size: 1.15rem;   /* smaller title */
+  }
+
+  .pill {
+    font-size: 0.78rem;
+    padding: 0.2rem 0.5rem;
+  }
+
+  .chip {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}

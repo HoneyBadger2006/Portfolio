@@ -27,6 +27,8 @@ gsap.from(".home__social-icon", { opacity: 0, duration: 3, delay: 4, y: 25, ease
 
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.from("#about", { scrollTrigger: { trigger: "#about", start: "top 80%" }, opacity: 0, y: 50, duration: 1.2 });
+gsap.from(".about__img", { scrollTrigger: { trigger: "#about", start: "top 80%" }, opacity: 0, x: -50, duration: 1.3, ease: "expo.out" });
+gsap.from(".about__subtitle", { scrollTrigger: { trigger: "#about", start: "top 80%" }, opacity: 0, y: 30, duration: 1.2, delay: 0.15, ease: "expo.out" });
+gsap.from(".about__text", { scrollTrigger: { trigger: "#about", start: "top 80%" }, opacity: 0, y: 30, duration: 1.2, stagger: 0.15, delay: 0.25, ease: "expo.out" });
 gsap.from("#projects", { scrollTrigger: { trigger: "#projects", start: "top 80%" }, opacity: 0, y: 50, duration: 1.2 });
 gsap.from("#contact", { scrollTrigger: { trigger: "#contact", start: "top 80%" }, opacity: 0, y: 50, duration: 1.2 });

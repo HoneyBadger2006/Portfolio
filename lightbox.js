@@ -15,12 +15,16 @@
     imgEl.src = src;
     imgEl.alt = alt || "";
     overlay.classList.add("show");
+    requestAnimationFrame(() => overlay.classList.add("visible"));
     document.body.style.overflow = "hidden";
   }
 
   function closeLightbox() {
-    overlay.classList.remove("show");
-    imgEl.src = "";
+    overlay.classList.remove("visible");
+    overlay.addEventListener("transitionend", () => {
+      overlay.classList.remove("show");
+      imgEl.src = "";
+    }, { once: true });
     document.body.style.overflow = "";
   }
 

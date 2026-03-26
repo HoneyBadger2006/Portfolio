@@ -245,6 +245,12 @@ img {
   width: 100%;
   border-radius: 0.5rem;
   object-fit: cover;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about__img img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 32px rgba(17, 57, 78, 0.5);
 }
 
 .about__subtitle {
@@ -446,6 +452,18 @@ img {
   opacity: 0.95;
 }
 
+.project-detail__list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  font-weight: 400;
+  line-height: 1.8;
+  opacity: 0.95;
+}
+
+.project-detail__list li {
+  margin-bottom: 0.4rem;
+}
+
 .project-detail__links {
   margin-top: 0.5rem;
 }
@@ -500,10 +518,25 @@ img {
   justify-content: center;
   padding: 2rem;
   z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 .lightbox.show {
   display: flex;
+}
+
+.lightbox.visible {
+  opacity: 1;
+}
+
+@keyframes lightboxImgIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox.visible .lightbox__img {
+  animation: lightboxImgIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .lightbox__img {

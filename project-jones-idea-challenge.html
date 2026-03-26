@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Jones Idea Challenge | Quan Portfolio</title>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="l-header">
+      <nav class="nav bd-grid">
+        <div>
+          <a href="index.html" class="nav__logo">Quan</a>
+        </div>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
+            <li class="nav__item"><a href="index.html#projects" class="nav__link">Projects</a></li>
+            <li class="nav__item"><a href="index.html#contact" class="nav__link">Contact</a></li>
+          </ul>
+        </div>
+        <div class="nav__toggle" id="nav-toggle">
+          <ion-icon name="menu"></ion-icon>
+        </div>
+      </nav>
+    </header>
+
+    <main class="bd-grid project-page">
+      <a class="back-link" href="index.html#projects">← Back to Projects</a>
+
+      <!-- HERO IMAGE -->
+      <section class="project-hero">
+        <img class="zoomable" src="assets/img/jone-4.jpg" alt="Jones Idea Challenge presentation" />
+      </section>
+
+      <!-- DETAIL CARD -->
+      <section class="project-detail">
+        <div class="project-detail__header">
+          <div class="project__meta">
+            <span class="project__event">Jones Idea Challenge</span>
+            <span class="project__year">2025</span>
+          </div>
+
+          <h1 class="project-detail__title">SU Campus Store Redesign</h1>
+          <p class="project-detail__tagline">
+            Omnichannel strategy to improve the Seattle University Campus Store through student research, a rewards app, vending access, and stronger engagement.
+          </p>
+
+          <div class="project__chips">
+            <span class="chip">Research</span>
+            <span class="chip">Strategy</span>
+            <span class="chip">Omnichannel</span>
+            <span class="chip">Presentation</span>
+          </div>
+        </div>
+
+        <div class="project-detail__body">
+          <h2 class="project-detail__section-title">Overview</h2>
+          <p class="project-detail__text">
+            Collaborated on a team project to improve the Seattle University Campus Store experience.
+            Conducted student research, helped shape an omnichannel solution with app, rewards, and
+            vending ideas, and presented the final proposal to judges at the Jones Idea Challenge.
+          </p>
+
+          <h2 class="project-detail__section-title">What I did</h2>
+          <ul class="project-detail__list">
+            <li>Surveyed around 100 students to understand campus store pain points and unmet needs</li>
+            <li>Helped design an omnichannel retail solution with app features, rewards ideas, and vending machine access</li>
+            <li>Presented the final idea and recommendations to judges at the Seattle University Jones Idea Challenge</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <div class="detail-gallery">
+        <figure class="detail-card">
+          <img class="zoomable" src="assets/img/jone-2.jpg" alt="Solutions Summary presentation slide" />
+          <figcaption class="detail-caption">
+            Presenting our Solutions Summary — vending machine access, gamification rewards app, pop-up store concepts, and marketing strategies.
+          </figcaption>
+        </figure>
+
+        <figure class="detail-card">
+          <img class="zoomable" src="assets/img/jone-3.jpg" alt="Budget Summary presentation slide" />
+          <figcaption class="detail-caption">
+            Walking judges through the Budget Summary — cost predictions ranging $10,000–$23,000/year covering student access, staff operations, and engagement features.
+          </figcaption>
+        </figure>
+
+        <figure class="detail-card">
+          <img class="zoomable" src="assets/img/jone-1.jpg" alt="Team photo after the Jones Idea Challenge" />
+          <figcaption class="detail-caption">
+            Team photo after the presentation — a great experience collaborating, researching, and pitching our solution to the Campus Store challenge.
+          </figcaption>
+        </figure>
+      </div>
+    </main>
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.4/gsap.min.js"></script>
+    <script src="main.js"></script>
+    <script src="lightbox.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>
+  </body>
+</html>

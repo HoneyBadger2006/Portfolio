@@ -509,10 +509,21 @@ img {
 .lc-legend__cell[data-level="3"] { background: rgba(17, 57, 78, 0.85); }
 .lc-legend__cell[data-level="4"] { background: #11394e; }
 
+.gh-contrib-wrap {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  overflow: hidden;
+  margin-top: 1.5rem;
+}
+
 .leetcode__link-wrap {
   display: flex;
   justify-content: center;
+  gap: 1rem;
   margin-top: 1.5rem;
+  flex-wrap: wrap;
 }
 
 /* PROJECTS GRID (BANNER ONLY) */

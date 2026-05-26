@@ -102,6 +102,66 @@
     container.appendChild(grid);
   }
 
+  // ── GitHub contributions ─────────────────────────────────────────
+  async function loadGitHub() {
+    const container = document.getElementById("gh-heatmap");
+    if (!container) return;
+
+    let contributions = [];
+    try {
+      const res = await fetch("https://github-contributions-api.jogruber.de/v4/HoneyBadger2006?y=last");
+      const data = await res.json();
+      contributions = data.contributions || [];
+    } catch (_) {
+      container.innerHTML = '<p class="lc-heatmap__error">Could not load GitHub contributions.</p>';
+      return;
+    }
+
+    // Map date → {count, level}
+    const byDate = {};
+    let yearTotal = 0;
+    const thisYear = new Date().getFullYear().toString();
+    contributions.forEach(({ date, count, level }) => {
+      byDate[date] = { count, level };
+      if (date.startsWith(thisYear)) yearTotal += count;
+    });
+
+    const countEl = document.getElementById("gh-year-count");
+    if (countEl) countEl.textContent = `${yearTotal} contributions in ${thisYear}`;
+
+    // Build last 52 weeks
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const start = new Date(today);
+    start.setDate(start.getDate() - 364);
+    start.setDate(start.getDate() - start.getDay());
+
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "lc-heatmap__grid";
+
+    const cur = new Date(start);
+    while (cur <= today) {
+      const col = document.createElement("div");
+      col.className = "lc-heatmap__col";
+      for (let d = 0; d < 7; d++) {
+        const key = cur.toISOString().slice(0, 10);
+        const entry = byDate[key] || { count: 0, level: 0 };
+        const cell = document.createElement("div");
+        cell.className = "lc-heatmap__cell";
+        cell.dataset.level = entry.level;
+        const label = cur.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+        cell.title = `${label}: ${entry.count} contribution${entry.count !== 1 ? "s" : ""}`;
+        col.appendChild(cell);
+        cur.setDate(cur.getDate() + 1);
+      }
+      grid.appendChild(col);
+    }
+
+    container.appendChild(grid);
+  }
+
   loadStats();
   loadCalendar();
+  loadGitHub();
 })();

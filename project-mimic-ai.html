@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Mimic-AI | Quan Portfolio</title>
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="l-header">
+      <nav class="nav bd-grid">
+        <div>
+          <a href="index.html" class="nav__logo">Quan</a>
+        </div>
+
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item"><a href="index.html" class="nav__link">Home</a></li>
+            <li class="nav__item"><a href="index.html#about" class="nav__link">About</a></li>
+            <li class="nav__item"><a href="index.html#projects" class="nav__link">Projects</a></li>
+            <li class="nav__item"><a href="index.html#contact" class="nav__link">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main class="bd-grid project-page">
+      <a class="back-link" href="index.html#projects">← Back to Projects</a>
+
+      <section class="project-hero">
+        <img class="zoomable" src="assets/Aws1.jpg" alt="Mimic-AI banner" />
+      </section>
+
+      <section class="project-detail">
+        <div class="project-detail__header">
+          <div class="project__meta">
+            <span class="project__event">Hackathon</span>
+            <span class="project__year">2026</span>
+          </div>
+
+          <h1 class="project-detail__title">Mimic-AI</h1>
+          <p class="project-detail__tagline">
+            Real-time face battle — get prompted, make the expression, get scored by AI. Mog or get mogged.
+          </p>
+
+          <div class="project__chips">
+            <span class="chip">React</span>
+            <span class="chip">Vite</span>
+            <span class="chip">Socket.io</span>
+            <span class="chip">Python</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+          </div>
+        </div>
+
+        <div class="project-detail__body">
+          <h2 class="project-detail__section-title">Inspiration</h2>
+          <p class="project-detail__text">
+            We wanted to build something that made people laugh the second they saw it. Most hackathon projects
+            are impressive but hard to explain — we wanted the opposite: something anyone could pick up in five
+            seconds and immediately want to show their friends. The idea of using AI to judge facial expressions
+            in a live head-to-head battle felt equal parts ridiculous and technically interesting, which is
+            exactly the sweet spot we were going for.
+          </p>
+
+          <h2 class="project-detail__section-title">What it does</h2>
+          <p class="project-detail__text">
+            Mimic-AI puts two players in a real-time face battle. Both receive the same prompt — something like
+            "make a dead face" or "look shocked" — and have 5 seconds to nail it on camera. When time's up,
+            both frames are scored by an AI vision model, the higher score wins ELO, and you either mog your
+            opponent or get mogged. Simple, chaotic, and immediately fun.
+          </p>
+
+          <h2 class="project-detail__section-title">How we built it</h2>
+          <p class="project-detail__text">
+            The frontend is a React + Vite app styled to look like a competitive gaming HUD — split-screen
+            webcam panels, a countdown timer, ELO tracking, and a results screen. The backend handles real-time
+            matchmaking and game state using Socket.io, with events like <code>join_room</code>,
+            <code>prompt_ready</code>, <code>submit_frame</code>, and <code>game_over</code> driving the flow.
+            AI scoring runs through a vision model that evaluates each submitted frame against the target
+            expression.
+          </p>
+
+          <h2 class="project-detail__section-title">Challenges we ran into</h2>
+          <p class="project-detail__text">
+            Getting real-time webcam frame capture and submission to feel snappy was harder than expected —
+            there's a surprising amount of latency to manage between capture, emit, score, and render.
+            Designing the socket event flow so both players stay in sync without race conditions took several
+            iterations. On the frontend side, making the UI feel polished and game-like under hackathon time
+            pressure was its own challenge.
+          </p>
+
+          <h2 class="project-detail__section-title">What we learned</h2>
+          <p class="project-detail__text">
+            Building with websockets taught us a lot about state synchronization in real-time multiplayer —
+            it's one thing to read about it and another to debug two browser tabs drifting out of sync at 2am.
+            We also got a much better feel for how to prompt vision models for consistent, scoreable output
+            rather than freeform descriptions.
+          </p>
+
+          <h2 class="project-detail__section-title">What's next for Mimic-AI</h2>
+          <p class="project-detail__text">
+            Ranked matchmaking, more expression categories, a spectator mode, and potentially a tournament
+            bracket format. The core loop is addictive enough that there's a lot of room to build on top of it.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div class="detail-gallery">
+      <figure class="detail-card">
+        <img class="zoomable" src="assets/Aws2.jpg" alt="Mimic-AI gameplay screenshot" />
+        <figcaption class="detail-caption">
+          Split-screen webcam HUD — both players see the same prompt and race to nail the expression in 5 seconds.
+        </figcaption>
+      </figure>
+
+      <figure class="detail-card">
+        <img class="zoomable" src="assets/Aws3.jpg" alt="Mimic-AI results screen" />
+        <figcaption class="detail-caption">
+          Results screen showing AI scores, ELO change, and who mogged who.
+        </figcaption>
+      </figure>
+
+      <figure class="detail-card">
+        <img class="zoomable" src="assets/Aws4.jpg" alt="Team building Mimic-AI" />
+        <figcaption class="detail-caption">
+          Building the socket event flow and keeping two players in sync without race conditions.
+        </figcaption>
+      </figure>
+
+      <figure class="detail-card">
+        <img class="zoomable" src="assets/Aws5.jpg" alt="Mimic-AI demo" />
+        <figcaption class="detail-caption">
+          Demo time — the reactions from people seeing it live for the first time made the 2am debugging worth it.
+        </figcaption>
+      </figure>
+    </div>
+
+    <script src="lightbox.js"></script>
+  </body>
+</html>

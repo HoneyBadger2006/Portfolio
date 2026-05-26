@@ -204,6 +204,12 @@ img {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
   -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0));
   mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0));
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.home__img img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 50px rgba(17, 57, 78, 0.6);
 }
 
 .home__social {
@@ -397,12 +403,24 @@ img {
   text-decoration: underline;
 }
 
+.project-hero {
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .project-hero img {
   width: 100%;
   height: 420px;
   object-fit: cover;
   border-radius: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: block;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.project-hero img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 40px rgba(17, 57, 78, 0.5);
 }
 
 .project-detail {
@@ -498,6 +516,12 @@ img {
   height: 320px;
   object-fit: cover;
   display: block;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.detail-card img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 32px rgba(17, 57, 78, 0.5);
 }
 
 .detail-caption {

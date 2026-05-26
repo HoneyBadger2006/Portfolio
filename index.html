@@ -156,13 +156,41 @@
       <h2 class="section-title">LeetCode</h2>
       <p class="leetcode__lead">Solving problems, one submission at a time.</p>
 
-      <div class="leetcode__cards">
-        <div class="leetcode__card">
-          <img
-            src="https://leetcard.vercel.app/Qpham0410?theme=dark&font=baloo_2&ext=activity"
-            alt="Qpham0410 LeetCode stats"
-            class="leetcode__img"
-          />
+      <div class="leetcode__stats" id="lc-stats">
+        <div class="lc-stat-card lc-stat-card--loading" id="lc-easy">
+          <span class="lc-stat__num">—</span>
+          <span class="lc-stat__lbl">Easy</span>
+        </div>
+        <div class="lc-stat-card lc-stat-card--loading" id="lc-medium">
+          <span class="lc-stat__num">—</span>
+          <span class="lc-stat__lbl">Medium</span>
+        </div>
+        <div class="lc-stat-card lc-stat-card--loading" id="lc-hard">
+          <span class="lc-stat__num">—</span>
+          <span class="lc-stat__lbl">Hard</span>
+        </div>
+        <div class="lc-stat-card lc-stat-card--loading" id="lc-total">
+          <span class="lc-stat__num">—</span>
+          <span class="lc-stat__lbl">Total</span>
+        </div>
+      </div>
+
+      <div class="leetcode__calendar-wrap">
+        <div class="lc-calendar-header">
+          <span class="lc-calendar-title">Submission Calendar</span>
+          <span class="lc-calendar-count" id="lc-year-count"></span>
+        </div>
+        <div id="lc-heatmap" class="lc-heatmap">
+          <p class="lc-heatmap__loading">Loading calendar…</p>
+        </div>
+        <div class="lc-legend">
+          <span class="lc-legend__lbl">Less</span>
+          <span class="lc-legend__cell" data-level="0"></span>
+          <span class="lc-legend__cell" data-level="1"></span>
+          <span class="lc-legend__cell" data-level="2"></span>
+          <span class="lc-legend__cell" data-level="3"></span>
+          <span class="lc-legend__cell" data-level="4"></span>
+          <span class="lc-legend__lbl">More</span>
         </div>
       </div>
 
@@ -318,6 +346,8 @@
     <script src="main.js"></script>
     <!-- LIGHTBOX -->
     <script src="lightbox.js"></script>
+    <!-- LEETCODE CALENDAR -->
+    <script src="leetcode.js"></script>
 
     <!-- ICONS -->
     <script type="module" src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons/ionicons.esm.js"></script>

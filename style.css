@@ -288,6 +288,48 @@ img {
   font-weight: 400;
 }
 
+/* LEETCODE */
+.leetcode__lead {
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.leetcode__cards {
+  display: flex;
+  justify-content: center;
+}
+
+.leetcode__card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  overflow: hidden;
+  padding: 1rem;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.leetcode__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(17, 57, 78, 0.5);
+}
+
+.leetcode__img {
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.leetcode__link-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
 /* PROJECTS GRID (BANNER ONLY) */
 .projects__lead {
   text-align: center;

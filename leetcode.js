@@ -1,20 +1,73 @@
 (async function () {
-  const USERNAME = "Qpham0410";
-  const BASE = "https://alfa-leetcode-api.onrender.com";
+  const LC_USER   = "Qpham0410";
+  const GH_USER   = "HoneyBadger2006";
+  const LC_BASE   = "https://alfa-leetcode-api.onrender.com";
+  const GH_BASE   = "https://github-contributions-api.jogruber.de/v4";
 
-  // ── Fetch stats ──────────────────────────────────────────────────
+  const START_YEAR = 2024;
+  const THIS_YEAR  = new Date().getFullYear();
+  const YEARS      = Array.from({ length: THIS_YEAR - START_YEAR + 1 }, (_, i) => THIS_YEAR - i);
+
+  const lcCache = {}; // year → {byDate}
+  const ghCache = {}; // year → {byDate}
+
+  // ── Heatmap grid renderer ─────────────────────────────────────────
+  function renderHeatmap(container, byDate, year, labelFn) {
+    container.innerHTML = "";
+    const grid = document.createElement("div");
+    grid.className = "lc-heatmap__grid";
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const rangeEnd   = year === THIS_YEAR ? new Date(today) : new Date(year, 11, 31);
+    const rangeStart = new Date(year, 0, 1);
+    rangeStart.setDate(rangeStart.getDate() - rangeStart.getDay()); // align to Sunday
+
+    const cur = new Date(rangeStart);
+    while (cur <= rangeEnd) {
+      const col = document.createElement("div");
+      col.className = "lc-heatmap__col";
+      for (let d = 0; d < 7; d++) {
+        if (cur > rangeEnd) { cur.setDate(cur.getDate() + 1); continue; }
+        const key   = cur.toISOString().slice(0, 10);
+        const entry = byDate[key] || { count: 0, level: 0 };
+        const cell  = document.createElement("div");
+        cell.className    = "lc-heatmap__cell";
+        cell.dataset.level = entry.level;
+        cell.title        = labelFn(new Date(cur), entry.count);
+        col.appendChild(cell);
+        cur.setDate(cur.getDate() + 1);
+      }
+      if (col.children.length) grid.appendChild(col);
+    }
+    container.appendChild(grid);
+  }
+
+  // ── Year-button row ───────────────────────────────────────────────
+  function renderYearBtns(wrapId, activeYear, onYearClick) {
+    const wrap = document.getElementById(wrapId);
+    if (!wrap) return;
+    wrap.innerHTML = "";
+    YEARS.forEach(y => {
+      const btn = document.createElement("button");
+      btn.textContent = y;
+      btn.className   = "year-btn" + (y === activeYear ? " year-btn--active" : "");
+      btn.addEventListener("click", () => onYearClick(y));
+      wrap.appendChild(btn);
+    });
+  }
+
+  // ── LeetCode stats ────────────────────────────────────────────────
   async function loadStats() {
     try {
-      const res = await fetch(`${BASE}/${USERNAME}/solved`);
+      const res  = await fetch(`${LC_BASE}/${LC_USER}/solved`);
       const data = await res.json();
-
-      const set = (id, val) => {
+      const set  = (id, val) => {
         const card = document.getElementById(id);
         if (!card) return;
         card.querySelector(".lc-stat__num").textContent = val ?? "—";
         card.classList.remove("lc-stat-card--loading");
       };
-
       set("lc-easy",   data.easySolved);
       set("lc-medium", data.mediumSolved);
       set("lc-hard",   data.hardSolved);
@@ -27,141 +80,88 @@
     }
   }
 
-  // ── Fetch calendar ───────────────────────────────────────────────
-  async function loadCalendar() {
+  // ── LeetCode calendar ─────────────────────────────────────────────
+  async function loadCalendar(year) {
     const container = document.getElementById("lc-heatmap");
     if (!container) return;
+    container.innerHTML = '<p class="lc-heatmap__loading">Loading…</p>';
+    renderYearBtns("lc-year-btns", year, loadCalendar);
 
-    let calendar = {};
-    try {
-      const year = new Date().getFullYear();
-      const [r1, r2] = await Promise.all([
-        fetch(`${BASE}/userCalendar?username=${USERNAME}&year=${year}`),
-        fetch(`${BASE}/userCalendar?username=${USERNAME}&year=${year - 1}`),
-      ]);
-      const [d1, d2] = await Promise.all([r1.json(), r2.json()]);
-      Object.assign(calendar, JSON.parse(d1.submissionCalendar || "{}"));
-      Object.assign(calendar, JSON.parse(d2.submissionCalendar || "{}"));
-    } catch (_) {
-      container.innerHTML = '<p class="lc-heatmap__error">Could not load submission calendar.</p>';
-      return;
-    }
+    if (!lcCache[year]) {
+      try {
+        const res  = await fetch(`${LC_BASE}/userCalendar?username=${LC_USER}&year=${year}`);
+        const data = await res.json();
+        const raw  = JSON.parse(data.submissionCalendar || "{}");
 
-    // Build last 52 weeks starting on the most recent Sunday
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const start = new Date(today);
-    start.setDate(start.getDate() - 364);
-    start.setDate(start.getDate() - start.getDay()); // align to Sunday
-
-    const allCounts = Object.values(calendar).map(Number);
-    const maxCount = Math.max(...allCounts, 1);
-
-    const weeks = [];
-    const cur = new Date(start);
-    while (cur <= today) {
-      const week = [];
-      for (let d = 0; d < 7; d++) {
-        const ts = String(Math.floor(cur.getTime() / 1000));
-        week.push({ date: new Date(cur), count: Number(calendar[ts] || 0) });
-        cur.setDate(cur.getDate() + 1);
+        let maxCount = 1;
+        const byDate = {};
+        for (const [ts, cnt] of Object.entries(raw)) {
+          const key   = new Date(Number(ts) * 1000).toISOString().slice(0, 10);
+          const count = Number(cnt);
+          byDate[key] = { count, level: 0 };
+          if (count > maxCount) maxCount = count;
+        }
+        for (const e of Object.values(byDate)) {
+          e.level = e.count === 0 ? 0 : Math.ceil((e.count / maxCount) * 4);
+        }
+        lcCache[year] = byDate;
+      } catch (_) {
+        container.innerHTML = '<p class="lc-heatmap__error">Could not load calendar.</p>';
+        return;
       }
-      weeks.push(week);
     }
 
-    // Year total
-    const yearStart = Math.floor(new Date(today.getFullYear(), 0, 1).getTime() / 1000);
-    const yearEnd   = Math.floor(today.getTime() / 1000);
-    let yearTotal = 0;
-    for (const [ts, cnt] of Object.entries(calendar)) {
-      if (Number(ts) >= yearStart && Number(ts) <= yearEnd) yearTotal += Number(cnt);
-    }
+    const byDate = lcCache[year];
+    const yearTotal = Object.entries(byDate)
+      .filter(([k]) => k.startsWith(String(year)))
+      .reduce((s, [, e]) => s + e.count, 0);
+
     const countEl = document.getElementById("lc-year-count");
-    if (countEl) countEl.textContent = `${yearTotal} submissions in ${today.getFullYear()}`;
+    if (countEl) countEl.textContent = `${yearTotal} submissions in ${year}`;
 
-    // Render grid
-    container.innerHTML = "";
-    const grid = document.createElement("div");
-    grid.className = "lc-heatmap__grid";
-
-    weeks.forEach(week => {
-      const col = document.createElement("div");
-      col.className = "lc-heatmap__col";
-      week.forEach(({ date, count }) => {
-        const cell = document.createElement("div");
-        cell.className = "lc-heatmap__cell";
-        const level = count === 0 ? 0 : Math.ceil((count / maxCount) * 4);
-        cell.dataset.level = level;
-        const label = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-        cell.title = `${label}: ${count} submission${count !== 1 ? "s" : ""}`;
-        col.appendChild(cell);
-      });
-      grid.appendChild(col);
+    renderHeatmap(container, byDate, year, (date, count) => {
+      const lbl = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      return `${lbl}: ${count} submission${count !== 1 ? "s" : ""}`;
     });
-
-    container.appendChild(grid);
   }
 
-  // ── GitHub contributions ─────────────────────────────────────────
-  async function loadGitHub() {
+  // ── GitHub contributions ──────────────────────────────────────────
+  async function loadGitHub(year) {
     const container = document.getElementById("gh-heatmap");
     if (!container) return;
+    container.innerHTML = '<p class="lc-heatmap__loading">Loading…</p>';
+    renderYearBtns("gh-year-btns", year, loadGitHub);
 
-    let contributions = [];
-    try {
-      const res = await fetch("https://github-contributions-api.jogruber.de/v4/HoneyBadger2006?y=last");
-      const data = await res.json();
-      contributions = data.contributions || [];
-    } catch (_) {
-      container.innerHTML = '<p class="lc-heatmap__error">Could not load GitHub contributions.</p>';
-      return;
+    if (!ghCache[year]) {
+      try {
+        const res  = await fetch(`${GH_BASE}/${GH_USER}?y=${year}`);
+        const data = await res.json();
+        const byDate = {};
+        (data.contributions || []).forEach(({ date, count, level }) => {
+          byDate[date] = { count, level };
+        });
+        ghCache[year] = byDate;
+      } catch (_) {
+        container.innerHTML = '<p class="lc-heatmap__error">Could not load contributions.</p>';
+        return;
+      }
     }
 
-    // Map date → {count, level}
-    const byDate = {};
-    let yearTotal = 0;
-    const thisYear = new Date().getFullYear().toString();
-    contributions.forEach(({ date, count, level }) => {
-      byDate[date] = { count, level };
-      if (date.startsWith(thisYear)) yearTotal += count;
-    });
+    const byDate = ghCache[year];
+    const yearTotal = Object.entries(byDate)
+      .filter(([k]) => k.startsWith(String(year)))
+      .reduce((s, [, e]) => s + e.count, 0);
 
     const countEl = document.getElementById("gh-year-count");
-    if (countEl) countEl.textContent = `${yearTotal} contributions in ${thisYear}`;
+    if (countEl) countEl.textContent = `${yearTotal} contributions in ${year}`;
 
-    // Build last 52 weeks
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const start = new Date(today);
-    start.setDate(start.getDate() - 364);
-    start.setDate(start.getDate() - start.getDay());
-
-    container.innerHTML = "";
-    const grid = document.createElement("div");
-    grid.className = "lc-heatmap__grid";
-
-    const cur = new Date(start);
-    while (cur <= today) {
-      const col = document.createElement("div");
-      col.className = "lc-heatmap__col";
-      for (let d = 0; d < 7; d++) {
-        const key = cur.toISOString().slice(0, 10);
-        const entry = byDate[key] || { count: 0, level: 0 };
-        const cell = document.createElement("div");
-        cell.className = "lc-heatmap__cell";
-        cell.dataset.level = entry.level;
-        const label = cur.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-        cell.title = `${label}: ${entry.count} contribution${entry.count !== 1 ? "s" : ""}`;
-        col.appendChild(cell);
-        cur.setDate(cur.getDate() + 1);
-      }
-      grid.appendChild(col);
-    }
-
-    container.appendChild(grid);
+    renderHeatmap(container, byDate, year, (date, count) => {
+      const lbl = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+      return `${lbl}: ${count} contribution${count !== 1 ? "s" : ""}`;
+    });
   }
 
   loadStats();
-  loadCalendar();
-  loadGitHub();
+  loadCalendar(THIS_YEAR);
+  loadGitHub(THIS_YEAR);
 })();

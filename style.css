@@ -437,6 +437,37 @@ img {
   opacity: 0.55;
 }
 
+/* Year selector buttons */
+.year-btns {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+}
+
+.year-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: var(--white-color);
+  font-family: var(--body-font);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.year-btn:hover {
+  background: rgba(17, 57, 78, 0.5);
+  border-color: rgba(17, 57, 78, 0.8);
+}
+
+.year-btn--active {
+  background: var(--first-color);
+  border-color: var(--first-color);
+}
+
 .lc-heatmap {
   overflow-x: auto;
   padding-bottom: 0.25rem;

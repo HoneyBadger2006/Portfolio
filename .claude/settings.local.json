@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\Users\\\\Modern14\\\\Downloads\\\\Portfolio 5-26-2026\\\\Portfolio\" -Recurse | Where-Object { $_.Name -match \"\\(?i\\)aws\" })",
+      "Bash(git rm *)",
+      "WebFetch(domain:alfa-leetcode-api.onrender.com)"
+    ]
+  }
+}
